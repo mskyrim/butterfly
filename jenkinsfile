@@ -21,5 +21,18 @@ pipeline {
                 }
             }
         }
+        
+        stage('Test') {
+            steps {
+                sh "cd reviewer && ./gradlew cucumber"
+
+            }
+
+            post {
+                success {
+                    echo 'Test successful'
+                }
+            }
+        }
     }
 }
