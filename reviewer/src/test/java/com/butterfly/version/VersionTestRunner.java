@@ -6,8 +6,6 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        plugin = {"pretty", "html:build/test-results/version.html",
-                            "json:build/test-results/version.json"},
         features = {"classpath:features/version.feature"},
         glue = {"version.stepdef"}
 )
