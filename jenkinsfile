@@ -24,7 +24,7 @@ pipeline {
         
         stage('Test') {
             steps {
-                sh "cd reviewer && pwd && ./gradlew tasks --all"
+                sh "cd reviewer && ./gradlew tasks --all"
 
             }
 
