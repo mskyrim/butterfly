@@ -39,8 +39,7 @@ test {
 	useJUnitPlatform()
 }
 
-task cucumber() {
-	dependsOn assemble, testClasses
+task cucumber(type: GradleBuild, dependsOn: ['build']) {
 	doLast {
 		javaexec {
 			main = "io.cucumber.core.cli.Main"

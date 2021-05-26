@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh "cd reviewer && ./gradlew clean build cucumber"
+                sh "cd reviewer && ./gradlew clean build"
 
             }
 
@@ -24,7 +24,7 @@ pipeline {
         
         stage('Test') {
             steps {
-                sh "cd reviewer && pwd && ./gradlew clean cucumber"
+                sh "cd reviewer && pwd && ./gradlew cucumber"
 
             }
 
