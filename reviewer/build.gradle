@@ -12,6 +12,9 @@ configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
+	cucumberRuntime {
+		extendsFrom testImplementation
+	}
 }
 
 repositories {
@@ -23,8 +26,25 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation group: 'junit', name: 'junit', version: '4.12'
+	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.13.2'
+	testImplementation group: 'io.cucumber', name: 'cucumber-spring', version: '6.8.0'
+	testImplementation group: 'io.cucumber', name: 'cucumber-core', version: '6.8.0'
+	testImplementation group: 'io.cucumber', name: 'cucumber-java', version: '6.8.0'
+	testImplementation group: 'io.cucumber', name: 'cucumber-junit', version: '6.8.0'
+	testImplementation "net.masterthought:cucumber-reporting:5.3.0"
 }
 
 test {
 	useJUnitPlatform()
+}
+
+task cucumber(type: GradleBuild, dependsOn: ['build']) {
+	doLast {
+		javaexec {
+			main = "io.cucumber.core.cli.Main"
+			classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+			args = ['--plugin', 'pretty','--plugin','html:build/test-results/cucumber/report.html','--plugin', 'json:build/test-results/cucumber/report.json','--glue', 'com.butterfly', 'src/test/resources/features/']
+		}
+	}
 }

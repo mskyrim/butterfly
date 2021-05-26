@@ -11,13 +11,26 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh "cd reviewer && ./gradlew clean build"
+                sh "cd reviewer && cat gradle.build && ./gradlew clean build"
 
             }
 
             post {
                 success {
                     echo 'Build successful'
+                }
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                sh "cd reviewer && pwd && ./gradlew cucumber"
+
+            }
+
+            post {
+                success {
+                    echo 'Test successful'
                 }
             }
         }
