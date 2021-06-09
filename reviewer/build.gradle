@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.4.5'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'info.solidsoft.pitest' version '1.5.1'
 }
 
 group = 'com.butterfly'
@@ -44,7 +45,16 @@ task cucumber(type: GradleBuild, dependsOn: ['build']) {
 		javaexec {
 			main = "io.cucumber.core.cli.Main"
 			classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
-			args = ['--plugin', 'pretty','--plugin','html:build/test-results/cucumber/report.html','--plugin', 'json:build/test-results/cucumber/report.json','--glue', 'com.butterfly', 'src/test/resources/features/']
+			args = ['--plugin', 'pretty','--plugin','html:build/reports/cucumber/report.html','--plugin', 'json:build/reports/cucumber/report.json','--glue', 'com.butterfly', 'src/test/resources/features/']
 		}
 	}
 }
+
+pitest {
+	targetClasses = ['com.butterfly.*']  //by default "${project.group}.*"
+	pitestVersion = '1.4.1' //not needed when a default PIT version should be used
+	threads = 4
+	outputFormats = ['XML', 'HTML']
+	timestampedReports = false
+}
+
