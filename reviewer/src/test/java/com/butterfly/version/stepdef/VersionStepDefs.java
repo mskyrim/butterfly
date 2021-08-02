@@ -31,7 +31,8 @@ public class VersionStepDefs extends SpringIntegrationTest {
 
     @Given("App is up and running and the endpoint is ready")
     public void appIsUpAndRunningAndTheEndpointIsReady() {
-        this.urlEndpoint = this.getServerUrl() + VERSION_ENDPOINT;
+        this.urlEndpoint = this.getHttpServerUrl() + VERSION_ENDPOINT;
     }
+
 
 }
