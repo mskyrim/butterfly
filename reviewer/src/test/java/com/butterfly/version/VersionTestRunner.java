@@ -5,9 +5,9 @@ import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(
+/*@CucumberOptions(
         features = {"classpath:features/version.feature"},
         glue = {"version.stepdef"}
-)
+)*/
 public class VersionTestRunner {
 }
