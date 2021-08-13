@@ -25,4 +25,16 @@ public class ReviewDaoMemory implements IReviewDao{
     public List<Review> readAllReviews() {
         return this.reviews;
     }
+
+    @Override
+    public void initReviews(List<Review> reviews) {
+        this.reviews.addAll(reviews);
+    }
+
+    @Override
+    public void removeAllReviews() {
+        this.reviews.clear();
+    }
+
+
 }

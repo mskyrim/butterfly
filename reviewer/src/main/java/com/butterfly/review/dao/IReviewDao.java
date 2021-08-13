@@ -9,4 +9,6 @@ public interface IReviewDao {
     void createReview(Review review);
     Optional<Review> getReviewById(String id);
     List<Review> readAllReviews();
+    void initReviews(List<Review> reviews);
+    void removeAllReviews();
 }
