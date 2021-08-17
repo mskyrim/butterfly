@@ -62,6 +62,40 @@ public class ReviewControllerTest {
         // Then
         SoftAssertions softAssertions = new SoftAssertions();
         softAssertions.assertThat(response.getStatus()).isEqualTo(HttpStatus.SC_OK);
+        softAssertions.assertThat(response.getContentAsString()).isNotEmpty();
+        softAssertions.assertThat(response.getContentAsString()).isEqualTo(reviews.stream().map(review -> review.toString()).toArray());
+    }
+
+    @Test
+    public void should_return_review_by_id() throws Exception {
+        // Given
+        byte val = (byte) (Math.random() * 5);
+        List<Review> reviews = IntStream.of(1, 2, 3, 4)
+                .mapToObj(id -> new Review(id + "", (byte) id, "Review for article: " + id))
+                .collect(Collectors.toList());
+        reviewService.initReviews(reviews);
+        // When
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders
+                .get("/reviews/1").accept(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(print()).andReturn().getResponse();
+        // Then
+        SoftAssertions softAssertions = new SoftAssertions();
+        softAssertions.assertThat(response.getStatus()).isEqualTo(HttpStatus.SC_OK);
+        softAssertions.assertThat(response.getContentAsString()).isEqualTo(jsonReview.write(new Review("1",(byte) 1,"Review for article: 1")).getJson());
+    }
+
+    @Test
+    public void should_create_review() throws Exception {
+        // Given
+        Review review = new Review("1", (byte) 5, "Review for new article");
+        // When
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders
+                .post("/reviews").contentType(MediaType.APPLICATION_JSON_VALUE).content(jsonReview.write(review).getJson()))
+                .andReturn().getResponse();
+
+        // Then
+        SoftAssertions softAssertions = new SoftAssertions();
+        softAssertions.assertThat(response.getStatus()).isEqualTo(HttpStatus.SC_CREATED);
     }
 
 }
