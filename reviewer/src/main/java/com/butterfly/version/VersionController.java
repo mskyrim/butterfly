@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class VersionController {
 
-    private static Logger logger = LoggerFactory.getLogger(VersionController.class);
+    private static final Logger logger = LoggerFactory.getLogger(VersionController.class);
 
     @GetMapping("/version")
     public String getVersion() {
