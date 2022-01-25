@@ -50,9 +50,9 @@ public class ReviewControllerTest {
     @Test
     public void should_return_all_review() throws Exception {
         // Given
-        byte val = (byte) (Math.random() * 5);
+        byte reviewRatingRandom = (byte) (Math.random() * 5);
         List<Review> reviews = IntStream.of(1, 2, 3, 4)
-                .mapToObj(id -> new Review(id + "", (byte) (Math.random() * 5), "Review for article: " + id))
+                .mapToObj(id -> new Review(id + "", reviewRatingRandom, "Review for article: " + id))
                 .collect(Collectors.toList());
         BDDMockito.given(reviewService.getAll()).willReturn(reviews);
         // When
